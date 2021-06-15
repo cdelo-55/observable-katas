@@ -181,7 +181,10 @@ export class RXJSKatas {
    */
 
   static createObservable123delay():Observable<number> {
-    return; // TODO: Replace this return value with the value specified in the comment above.
+       return timer(0,50).pipe (
+              map ((num, idx) => idx + 1),
+              take(3)
+              );
   }
   
   /**
@@ -200,9 +203,9 @@ export class RXJSKatas {
    */
 
   static issueGetRequest(httpClient: HttpClient):Observable<object> {
-    return; // TODO: Replace this return value with the value specified in the comment above.
+    return httpClient.get('https://www.quotes4u.com/cervantes');
   }
-
+ 
   /**
    * We can also use the .post() method to issue a POST request.  In the method below, use the .post() 
    * method to post the data `{quote: 'Life is the flower for which love is the honey.'}` to the URL
@@ -210,7 +213,8 @@ export class RXJSKatas {
    */
 
   static issuePostRequest(httpClient: HttpClient):Observable<object> {
-    return; // TODO: Replace this return value with the value specified in the comment above.
+    return httpClient.post('https://www.quotes4u.com/hugo',
+    {quote: 'Life is the flower for which love is the honey.'});
   }
 
   /**
@@ -218,7 +222,8 @@ export class RXJSKatas {
    * human face.'}` to the URL `https://www.quotes4u.com/hugo/0` to update our previous quote.
    */
   static issuePatchRequest(httpClient: HttpClient):Observable<object> {
-    return; // TODO: Replace this return value with the value specified in the comment above.
+    return httpClient.patch(`https://www.quotes4u.com/hugo/0`,
+    {quote: 'Laughter is the sun that drives winter from the human face.'});
   }
   
   /**
@@ -226,7 +231,7 @@ export class RXJSKatas {
    * `https://www.quotes4u.com/hugo/0`
    */
   static issueDeleteRequest(httpClient: HttpClient):Observable<object> {
-    return; // TODO: Replace this return value with the value specified in the comment above.
+    return httpClient.delete(`https://www.quotes4u.com/hugo/0`); 
   }
 
   /**
@@ -238,6 +243,6 @@ export class RXJSKatas {
    * your request through `catchError`!)
    */
   static issueGetRequestCatchError(httpClient: HttpClient, errorHandler: (err, caught) => Observable<object>):Observable<object> {
-    return; // TODO: Replace this return value with the value specified in the comment above. 
+    return httpClient.get(`https://www.quotes4u.com/hugo`) .pipe(catchError(errorHandler));
   }
 }
